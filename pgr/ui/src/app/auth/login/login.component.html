@@ -1,0 +1,31 @@
+<div class="login-group">
+  <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSignIn()">
+    <mat-card *ngIf="!signingIn" class="login-card">
+      <mat-card-content>
+        <mat-chip-list>
+          <mat-chip
+          *ngIf="invalidCredentials"
+          [removable]="true"
+          (removed)="invalidCredentials = !invalidCredentials"
+          selected
+          color="warn"
+        >Invalid Credentials</mat-chip>
+        </mat-chip-list>
+        <br>
+        <div class="login-fields">
+          <mat-form-field>
+            <input matInput placeholder="Username" formControlName="username">
+          </mat-form-field>
+          <mat-form-field>
+            <input type="password" matInput placeholder="Password" formControlName="password">
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" [disabled]="!loginForm.valid">Sign In</button>
+        <a mat-button routerLink="/auth/signup">Sign Up</a>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+  <mat-spinner *ngIf="signingIn"></mat-spinner>
+</div>

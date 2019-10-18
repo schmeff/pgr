@@ -1,0 +1,18 @@
+.nav-items{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .nav-items-left{
+    span{
+      padding: 0 14px;
+    }
+  }
+
+  .nav-items-right {
+    button {
+      padding: 0 14px;
+    }
+  }
+
+}
