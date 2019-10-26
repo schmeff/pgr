@@ -4,7 +4,7 @@
   </div>
   <div class="nav-items-right">
     <button mat-flat-button color="primary" *ngIf="!signedIn" routerLink="/auth/signin">Sign In</button>
-    <button mat-raised-button *ngIf="!signedIn">Sign Up</button>
+    <button mat-raised-button *ngIf="!signedIn" routerLink="/auth/signup">Sign Up</button>
     <button mat-icon-button [matMenuTriggerFor]="settingsMenu" class="settings-menu" *ngIf="signedIn">
       <mat-icon>more_vert</mat-icon>
     </button>

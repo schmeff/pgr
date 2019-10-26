@@ -10,30 +10,33 @@ import {Router} from "@angular/router";
 })
 export class LoginComponent implements OnInit {
   loginForm = new FormGroup({
-    username: new FormControl('', [Validators.required]),
+    username: new FormControl(localStorage.getItem("username") || '', [Validators.required]),
     password: new FormControl('', [Validators.required])
   });
   invalidCredentials = false;
   signingIn = false;
 
   constructor(
-    private authService: AuthService,
-    private router: Router
+    private _authService: AuthService,
+    private _router: Router
   ) {
   }
 
   ngOnInit() {
+    if(localStorage.getItem("username")){
+      this.loginForm.controls["username"].setValue(localStorage.getItem("username"));
+    }
   }
 
   onSignIn() {
     this.signingIn = true;
-    this.authService.signIn(this.loginForm.controls['username'].value, this.loginForm.controls['password'].value)
+    this._authService.signIn(this.loginForm.controls['username'].value, this.loginForm.controls['password'].value)
       .subscribe((response: any) => {
           this.invalidCredentials = false;
           localStorage.setItem('token', response.data.tokenAuth.token);
           localStorage.setItem('username', this.loginForm.controls['username'].value);
           this.signingIn = false;
-          this.router.navigateByUrl('/home')
+          this._router.navigateByUrl('/home')
         },
         (err) => {
           if(err.message.includes("enter valid credentials")){

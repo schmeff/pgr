@@ -29,8 +29,21 @@ export class AuthService {
       });
   }
 
-  signUp(username: string, email: string, password: string): any {
+  signUp(email: string, username: string, password: string){
+    const submitSignUp = gql`
+      mutation {
+        createUser(username: "${username}", password: "${password}", email: "${email}"){
+          user {
+            username
+          }
+        } 
+      }
+    `;
 
+    return this.apollo
+      .mutate({
+        mutation: submitSignUp
+      });
   }
 
   signOut(){

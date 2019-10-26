@@ -11,7 +11,8 @@ export function createApollo(httpLink: HttpLink) {
 
   return {
     link: httpLink.create({uri, withCredentials: true, headers: new HttpHeaders({
-        Authorization: `JWT ${token}`
+        Authorization: token? `JWT ${token}` : ''
+        // 'X-CSRFToken': `${document.cookie.split('=')[1]}`
       })}),
     cache: new InMemoryCache(),
   };
