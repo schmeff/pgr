@@ -3,6 +3,7 @@ import {FormGroup, FormControl, Validators} from "@angular/forms";
 import {AuthService} from "../services/auth.service";
 import {Router} from "@angular/router";
 import {CustomErrorStateMatcher} from "../../shared/customer-error-state-matcher/CustomErrorStateMatcher";
+import {NavigationService} from "../../navigation/services/navigation.service";
 
 @Component({
     selector: 'pgr-sign-up',
@@ -26,11 +27,13 @@ export class SignUpComponent implements OnInit {
 
     constructor(
         private authService: AuthService,
-        private router: Router
+        private router: Router,
+        private navigationService: NavigationService
     ) {
     }
 
     ngOnInit() {
+        this.navigationService.displayNavigationMenu(false);
     }
 
     onSignUp() {

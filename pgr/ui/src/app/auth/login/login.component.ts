@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl, Validators} from "@angular/forms";
 import {AuthService} from "../services/auth.service";
 import {Router} from "@angular/router";
+import {NavigationService} from "../../navigation/services/navigation.service";
 
 @Component({
     selector: 'pgr-login',
@@ -17,23 +18,25 @@ export class LoginComponent implements OnInit {
     signingIn = false;
 
     constructor(
-        private _authService: AuthService,
-        private _router: Router
+        private authService: AuthService,
+        private router: Router,
+        private navigationService: NavigationService
     ) {
     }
 
     ngOnInit() {
+        this.navigationService.displayNavigationMenu(false);
     }
 
     onSignIn() {
         this.signingIn = true;
-        this._authService.signIn(this.loginForm.controls['username'].value, this.loginForm.controls['password'].value)
+        this.authService.signIn(this.loginForm.controls['username'].value, this.loginForm.controls['password'].value)
             .subscribe((response: any) => {
                     this.invalidCredentials = false;
                     localStorage.setItem('token', response.data.tokenAuth.token);
                     localStorage.setItem('username', this.loginForm.controls['username'].value);
                     this.signingIn = false;
-                    this._router.navigateByUrl('/home')
+                    this.router.navigateByUrl('/home')
                 },
                 (err) => {
                     if (err.message.includes("enter valid credentials")) {

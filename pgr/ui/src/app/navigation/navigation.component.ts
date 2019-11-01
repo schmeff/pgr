@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {AuthService} from "../auth/services/auth.service";
+import {NavigationService} from "./services/navigation.service";
 
 @Component({
     selector: 'pgr-navigation',
@@ -7,9 +8,14 @@ import {AuthService} from "../auth/services/auth.service";
     styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent implements OnInit {
+    display$ = this.navigationService.display$;
+
     signedIn: boolean = false;
 
-    constructor(private authService: AuthService) {
+    constructor(
+        private authService: AuthService,
+        private navigationService: NavigationService
+    ) {
     }
 
     ngOnInit() {
