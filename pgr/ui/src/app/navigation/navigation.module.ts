@@ -5,19 +5,19 @@ import {MatButtonModule, MatIconModule, MatMenuModule, MatToolbarModule} from "@
 import {RouterModule} from "@angular/router";
 
 @NgModule({
-  declarations: [NavigationComponent],
-  exports: [
-    NavigationComponent
-  ],
-  imports: [
-    CommonModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatButtonModule,
-    RouterModule
-  ]
+    declarations: [NavigationComponent],
+    exports: [
+        NavigationComponent
+    ],
+    imports: [
+        CommonModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatButtonModule,
+        MatMenuModule,
+        MatButtonModule,
+        RouterModule
+    ]
 })
 export class NavigationModule {
 }

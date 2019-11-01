@@ -1,2 +1,7 @@
 venv
 ./pgr/.idea/
+pgr/.idea/
+
+pgr/users/__pycache__/
+
+pgr/pgr/__pycache__/

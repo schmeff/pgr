@@ -21,11 +21,6 @@ class CreateUser(graphene.Mutation):
         email = graphene.String(required=True)
 
     def mutate(self, info, username, password, email):
-        existing_user = get_user_model().objects.filter(username=username.lower()).first()
-
-        if existing_user is not None:
-            raise GraphQLError("Username is already in use")
-
         existing_email = get_user_model().objects.filter(email=email.lower()).first()
 
         if existing_email is not None:
@@ -35,6 +30,11 @@ class CreateUser(graphene.Mutation):
             validate_email(email.lower())
         except ValidationError:
             raise GraphQLError('Email is invalid')
+
+        existing_user = get_user_model().objects.filter(username=username.lower()).first()
+
+        if existing_user is not None:
+            raise GraphQLError("Username is already in use")
 
         if len(password) < 8:
             raise GraphQLError('Password is too short')

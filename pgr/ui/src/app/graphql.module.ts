@@ -7,25 +7,28 @@ import {HttpHeaders} from "@angular/common/http";
 const uri = 'http://localhost:8000/graphql/'; // <-- add the URL of the GraphQL server here
 
 export function createApollo(httpLink: HttpLink) {
-  const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
-  return {
-    link: httpLink.create({uri, withCredentials: true, headers: new HttpHeaders({
-        Authorization: token? `JWT ${token}` : ''
-        // 'X-CSRFToken': `${document.cookie.split('=')[1]}`
-      })}),
-    cache: new InMemoryCache(),
-  };
+    return {
+        link: httpLink.create({
+            uri, withCredentials: true, headers: new HttpHeaders({
+                Authorization: token ? `JWT ${token}` : ''
+                // 'X-CSRFToken': `${document.cookie.split('=')[1]}`
+            })
+        }),
+        cache: new InMemoryCache(),
+    };
 }
 
 @NgModule({
-  exports: [ApolloModule, HttpLinkModule],
-  providers: [
-    {
-      provide: APOLLO_OPTIONS,
-      useFactory: createApollo,
-      deps: [HttpLink],
-    },
-  ],
+    exports: [ApolloModule, HttpLinkModule],
+    providers: [
+        {
+            provide: APOLLO_OPTIONS,
+            useFactory: createApollo,
+            deps: [HttpLink],
+        },
+    ],
 })
-export class GraphQLModule {}
+export class GraphQLModule {
+}

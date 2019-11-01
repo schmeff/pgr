@@ -10,20 +10,20 @@ import {HomeModule} from "./home/home.module";
 import {NavigationModule} from "./navigation/navigation.module";
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    GraphQLModule,
-    HttpClientModule,
-    HomeModule,
-    NavigationModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        GraphQLModule,
+        HttpClientModule,
+        HomeModule,
+        NavigationModule
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }

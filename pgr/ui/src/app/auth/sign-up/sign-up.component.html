@@ -1,49 +1,58 @@
 <div class="sign-up-group">
-  <form class="sign-up-form" [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
-    <mat-card *ngIf="!signingUp" class="sign-up-card">
-      <mat-card-content>
-        <mat-chip
-          *ngIf="signUpError"
-          [removable]="true"
-          (removed)="signUpError = !signUpError"
-          selected
-          color="warn">
-          {{signUpErrorDescription}}
-        </mat-chip>
-        <br>
-        <div class="sign-up-fields">
-          <mat-form-field>
-            <input type="email" matInput placeholder="Email" formControlName="email">
-            <mat-error *ngIf="!signUpForm.controls['email'].valid">
-              Enter a valid email address
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Username" formControlName="username">
-            <mat-error *ngIf="!signUpForm.controls['username'].valid">
-              Username is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <input type="password" matInput placeholder="Password" formControlName="password">
-            <mat-hint>Min 8 characters</mat-hint>
-            <mat-error *ngIf="!signUpForm.controls['password'].hasError('minLength')">
-              Password isn't long enough
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <input type="password" matInput placeholder="Confirm Password" formControlName="confirmPassword" [errorStateMatcher]="matcher">
-            <mat-error *ngIf="signUpForm.hasError('notSame')">
-              Passwords do not match
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-raised-button color="primary" [disabled]="!signUpForm.valid">Sign Up</button>
-        <a mat-button color="primary" routerLink="/auth/signin">Sign In</a>
-      </mat-card-actions>
-    </mat-card>
-  </form>
-  <mat-spinner *ngIf="signingUp"></mat-spinner>
+    <form class="sign-up-form" [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
+        <mat-card *ngIf="!signingUp" class="sign-up-card">
+            <mat-card-content>
+                <mat-chip-list>
+                    <mat-chip
+                        *ngIf="signUpError"
+                        (removed)="signUpError = !signUpError"
+                        selected
+                        color="warn">
+                        {{signUpErrorDescription}}
+                    </mat-chip>
+                </mat-chip-list>
+                <br>
+                <div class="sign-up-fields">
+                    <mat-form-field>
+                        <input type="email" matInput placeholder="Email" formControlName="email">
+                        <mat-error *ngIf="!signUpForm.controls['email'].valid">
+                            Enter a valid email address
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput placeholder="Username" formControlName="username" maxlength="100">
+                        <span matSuffix><mat-icon
+                            class="username-help-icon"
+                            matTooltip="Usernames can contain letters, numbers or underscores"
+                            matTooltipPosition="after">help_outline</mat-icon></span>
+                        <mat-error *ngIf="signUpForm.controls['username'].hasError('required')">
+                            Username is <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="signUpForm.controls['username'].hasError('pattern')">
+                            Invalid username
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input type="password" matInput placeholder="Password" formControlName="password" maxlength="100">
+                        <mat-hint>Min 8 characters</mat-hint>
+                        <mat-error *ngIf="!signUpForm.controls['password'].hasError('minLength')">
+                            Password isn't long enough
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input type="password" matInput placeholder="Confirm Password" formControlName="confirmPassword"
+                               [errorStateMatcher]="matcher">
+                        <mat-error *ngIf="signUpForm.hasError('notSame')">
+                            Passwords do not match
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="primary" [disabled]="!signUpForm.valid">Sign Up</button>
+                <a mat-button color="primary" routerLink="/auth/signin">Sign In</a>
+            </mat-card-actions>
+        </mat-card>
+    </form>
+    <mat-spinner *ngIf="signingUp"></mat-spinner>
 </div>

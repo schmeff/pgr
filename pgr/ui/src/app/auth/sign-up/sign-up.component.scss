@@ -1,11 +1,19 @@
-.sign-up-group{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+:host {
+
+    .sign-up-group {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+
+    .sign-up-fields {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .username-help-icon:hover {
+        cursor: default;
+    }
 }
 
-.sign-up-fields{
-  display: flex;
-  flex-direction: column;
-}

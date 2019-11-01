@@ -5,17 +5,17 @@ import {Observable} from "rxjs";
 
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(
-    private apollo: Apollo
-  ) {
-  }
+    constructor(
+        private apollo: Apollo
+    ) {
+    }
 
-  signIn(username: string, password: string): Observable<object> {
-    const submitSignIn = gql`
+    signIn(username: string, password: string): Observable<object> {
+        const submitSignIn = gql`
       mutation {
         tokenAuth(username: "${username}", password: "${password}"){
           token
@@ -23,14 +23,14 @@ export class AuthService {
       }
     `;
 
-    return this.apollo
-      .mutate({
-        mutation: submitSignIn
-      });
-  }
+        return this.apollo
+            .mutate({
+                mutation: submitSignIn
+            });
+    }
 
-  signUp(email: string, username: string, password: string){
-    const submitSignUp = gql`
+    signUp(email: string, username: string, password: string): Observable<any> {
+        const submitSignUp = gql`
       mutation {
         createUser(username: "${username}", password: "${password}", email: "${email}"){
           user {
@@ -40,22 +40,22 @@ export class AuthService {
       }
     `;
 
-    return this.apollo
-      .mutate({
-        mutation: submitSignUp
-      });
-  }
+        return this.apollo
+            .mutate({
+                mutation: submitSignUp
+            });
+    }
 
-  signOut(){
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
+    signOut() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
 
-    this.apollo.getClient().resetStore();
-  }
+        this.apollo.getClient().resetStore();
+    }
 
-  signedIn(){
-    return !!localStorage.getItem('token');
-  }
+    signedIn() {
+        return !!localStorage.getItem('token');
+    }
 
 
 }
