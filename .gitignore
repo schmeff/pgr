@@ -5,3 +5,5 @@ pgr/.idea/
 pgr/users/__pycache__/
 
 pgr/pgr/__pycache__/
+
+pgr/users/migrations/__pycache__/

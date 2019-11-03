@@ -8,13 +8,10 @@ import {NavigationService} from "./services/navigation.service";
     styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent implements OnInit {
-    display$ = this.navigationService.display$;
-
     signedIn: boolean = false;
 
     constructor(
-        private authService: AuthService,
-        private navigationService: NavigationService
+        private authService: AuthService
     ) {
     }
 

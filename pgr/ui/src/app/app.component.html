@@ -1,2 +1,2 @@
-<pgr-navigation></pgr-navigation>
+<pgr-navigation *ngIf="displayNavigation$ | async"></pgr-navigation>
 <router-outlet (activate)="onActivate($event)"></router-outlet>

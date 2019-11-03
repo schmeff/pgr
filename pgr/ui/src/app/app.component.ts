@@ -7,6 +7,7 @@ import {NavigationService} from "./navigation/services/navigation.service";
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+    displayNavigation$ = this.navigationService.display$;
 
     constructor(
         private navigationService: NavigationService

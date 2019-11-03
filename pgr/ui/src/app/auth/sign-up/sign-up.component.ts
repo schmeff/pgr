@@ -57,7 +57,7 @@ export class SignUpComponent implements OnInit {
                         "Password is too short"
                     ];
 
-                    if(possibleErrors.includes(err.graphQLErrors[0].message)){
+                    if(err.graphQLErrors.length && possibleErrors.includes(err.graphQLErrors[0].message)){
                         this.signUpErrorDescription = err.graphQLErrors[0].message;
                         this.signUpError = true;
                     }
