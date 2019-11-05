@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {NavigationService} from "./navigation/services/navigation.service";
+import {delay} from "rxjs/operators";
 
 @Component({
     selector: 'pgr-root',
@@ -7,13 +8,17 @@ import {NavigationService} from "./navigation/services/navigation.service";
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-    displayNavigation$ = this.navigationService.display$;
+    displayNavigation$ = this.navigationService.display$
+        .pipe(
+            delay(0)
+        );
 
     constructor(
         private navigationService: NavigationService
-    ){}
+    ) {
+    }
 
-    onActivate($event){
+    onActivate($event) {
         this.navigationService.displayNavigationMenu(true);
     }
 }

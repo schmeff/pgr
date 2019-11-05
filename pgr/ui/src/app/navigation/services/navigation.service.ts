@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -7,7 +7,7 @@ import {BehaviorSubject} from "rxjs";
 export class NavigationService {
     private displayBS: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
-    display$ = this.displayBS.asObservable();
+    display$: Observable<boolean> = this.displayBS.asObservable();
 
     constructor() {
     }

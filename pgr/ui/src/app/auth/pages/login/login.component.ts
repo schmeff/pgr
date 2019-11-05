@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl, Validators} from "@angular/forms";
-import {AuthService} from "../services/auth.service";
+import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
-import {NavigationService} from "../../navigation/services/navigation.service";
+import {NavigationService} from "../../../navigation/services/navigation.service";
 
 @Component({
     selector: 'pgr-login',
@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
         private router: Router,
         private navigationService: NavigationService
     ) {
+
     }
 
     ngOnInit() {

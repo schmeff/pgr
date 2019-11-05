@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl, Validators} from "@angular/forms";
-import {AuthService} from "../services/auth.service";
+import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
-import {CustomErrorStateMatcher} from "../../shared/customer-error-state-matcher/CustomErrorStateMatcher";
-import {NavigationService} from "../../navigation/services/navigation.service";
+import {CustomErrorStateMatcher} from "../../../shared/customer-error-state-matcher/CustomErrorStateMatcher";
+import {NavigationService} from "../../../navigation/services/navigation.service";
 
 @Component({
     selector: 'pgr-sign-up',
@@ -46,7 +46,7 @@ export class SignUpComponent implements OnInit {
             .subscribe((response: any) => {
                     this.signingUp = false;
                     localStorage.setItem("username", response.data.createUser.user.username);
-                    this.router.navigate(['/auth/signin'])
+                    this.router.navigate(['/auth/signin']);
                 },
                 (err) => {
                     this.signingUp = false;

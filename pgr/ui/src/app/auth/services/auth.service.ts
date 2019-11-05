@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Apollo} from "apollo-angular";
 import gql from 'graphql-tag';
 import {Observable} from "rxjs";
+import {getToken} from "codelyzer/angular/styles/cssLexer";
 
 
 @Injectable({
@@ -54,8 +55,26 @@ export class AuthService {
     }
 
     signedIn() {
-        return !!localStorage.getItem('token');
+        return !!this.getToken();
     }
 
+    verifyToken() {
+        const verifyToken = gql`
+            mutation {
+                verifyToken(token: "${this.getToken()}"){
+                    payload
+                }
+            }
+        `;
+
+        return this.apollo
+            .mutate({
+                mutation: verifyToken
+            });
+    }
+
+    getToken() {
+        return localStorage.getItem('token');
+    }
 
 }
