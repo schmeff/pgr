@@ -3,21 +3,29 @@ import {ApolloModule, APOLLO_OPTIONS} from 'apollo-angular';
 import {HttpLinkModule, HttpLink} from 'apollo-angular-link-http';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import {HttpHeaders} from "@angular/common/http";
+import {ApolloLink, concat} from "apollo-link";
 
 const uri = 'http://localhost:8000/graphql/'; // <-- add the URL of the GraphQL server here
 
 export function createApollo(httpLink: HttpLink) {
-    const token = localStorage.getItem("token");
+    const authMiddleware = new ApolloLink((operation, forward) => {
+        operation.setContext({
+            headers: new HttpHeaders().set('Authorization',
+                localStorage.getItem("token")? `JWT ${localStorage.getItem("token")}` : null)
+        });
+
+        return forward(operation);
+    });
+
+    const http =
+        httpLink.create({
+            uri,
+            withCredentials: true
+        });
 
     return {
-        link: httpLink.create({
-            uri,
-            withCredentials: true,
-            headers: new HttpHeaders({
-                Authorization: token ? `JWT ${token}` : ''
-            })
-        }),
-        cache: new InMemoryCache(),
+        link: concat(authMiddleware, http),
+        cache: new InMemoryCache()
     };
 }
 

@@ -1,3 +1,45 @@
-<p>
-  edit-user-profile works!
-</p>
+<div class="profile-container">
+    <div class="profile-fields-container">
+        <form
+            [formGroup]="editProfileForm"
+            class="edit-profile-form">
+            <h2>My Account</h2>
+
+            <label for="username">Username</label>
+            <p id="username">{{username$ | async}}</p>
+
+            <label for="email">Email</label>
+            <p id="email">{{email}}</p>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Name</mat-label>
+                <input
+                    type="text"
+                    matInput
+                    maxlength="100"
+                    formControlName="name"
+                >
+                <mat-error *ngIf="editProfileForm.controls['name'].hasError('maxLength')">
+                    Name is too long
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Say something about yourself</mat-label>
+                <textarea
+                    matInput
+                    rows="5"
+                    maxlength="2000"
+                    formControlName="bio"></textarea>
+                <mat-error *ngIf="editProfileForm.controls['bio'].hasError('maxLength')">
+                    Bio is too long
+                </mat-error>
+            </mat-form-field>
+        </form>
+
+        <div class="edit-profile-buttons">
+            <button mat-raised-button color="primary" (click)="saveProfile()">Save</button>
+            <button mat-raised-button>Cancel</button>
+        </div>
+    </div>
+</div>

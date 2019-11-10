@@ -1,0 +1,9 @@
+@import '../../node_modules/@angular/material/theming';
+@include mat-core();
+
+$pgr-app-primary: mat-palette($mat-cyan, 700, A100, 900);
+$pgr-app-accent: mat-palette($mat-deep-orange, 400, 200, 800);
+
+$pgr-theme: mat-dark-theme($pgr-app-primary, $pgr-app-accent);
+
+@include angular-material-theme($pgr-theme);

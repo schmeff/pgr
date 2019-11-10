@@ -1,6 +1,6 @@
 <mat-toolbar color="primary" class="nav-items">
     <div class="nav-items-left">
-        <span>PGR</span>
+        <span class="home-span" (click)="goHome()">PGR</span>
     </div>
     <div class="nav-items-right">
         <button mat-flat-button color="primary" *ngIf="!signedIn" routerLink="/auth/signin">Sign In</button>
@@ -9,6 +9,10 @@
             <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #settingsMenu="matMenu">
+            <button mat-menu-item routerLink="/users/{{username}}/profile/edit">
+                <mat-icon>account_circle</mat-icon>
+                <span>My Account</span>
+            </button>
             <button mat-menu-item (click)="signOut()">
                 <mat-icon>exit_to_app</mat-icon>
                 <span>Sign Out</span>

@@ -59,27 +59,52 @@ class CreateUser(graphene.Mutation):
         return CreateUser(user=user)
 
 
-class UpdateUserProfile(graphene.Mutation):
-    profile = graphene.Field(ProfileType)
+class SaveUserProfile(graphene.Mutation):
+    success = graphene.Boolean()
 
     class Arguments:
-        name = graphene.String(required=False)
-        bio = graphene.String(required=False)
-        twitch = graphene.String(required=False)
-        mixer = graphene.String(required=False)
-        youtube = graphene.String(required=False)
-        twitter = graphene.String(required=False)
-        instagram = graphene.String(required=False)
-        facebook = graphene.String(required=False)
-        discord_username = graphene.String(required=False)
+        show_email = graphene.Boolean()
+        name = graphene.String()
+        bio = graphene.String()
 
     @login_required
-    def mutate(self, info, name, bio, twitch, mixer, youtube, twitter, instagram, facebook, discord_username):
+    def mutate(self, info, name, bio):
         user = info.context.user
 
         if user is None:
-            raise GraphQLError("You are not permitted to perform this action")
+            raise GraphQLError("You do not have permission to perform this action")
+
+        existing_profile = Profile.objects.filter(user=user).first()
+
+        if existing_profile is None:
+            raise GraphQLError("Could not find user profile")
+
+        existing_profile.name = name
+        existing_profile.bio = bio
+
+        existing_profile.save()
+        success = True
+
+        return SaveUserProfile(success=success)
 
 
 class Mutation(graphene.ObjectType):
     create_user = CreateUser.Field()
+    save_user_profile = SaveUserProfile.Field()
+
+
+class Query(graphene.ObjectType):
+    profile_edit = graphene.Field(ProfileType, username=graphene.String())
+
+    @login_required
+    def resolve_profile_edit(self, info, username=None):
+        user = info.context.user
+        if user.username != username:
+            raise GraphQLError("You don't have permission to access this page")
+
+        profile = Profile.objects.filter(user=user).first()
+        if profile is None:
+            profile = Profile(user=user)
+            profile.save()
+
+        return profile

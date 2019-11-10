@@ -1,0 +1,47 @@
+@import "~src/styles/colors";
+
+.profile-container {
+    width: 100%;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .profile-fields-container {
+        border-radius: 10px;
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        padding: 10px 30px 30px 30px;
+
+        background-color: $secondary-dark-background;
+
+        .edit-profile-form {
+            display: flex;
+            flex-direction: column;
+
+            label {
+                opacity: 0.7;
+                margin-bottom: -13px;
+            }
+
+            .display-email {
+                margin-bottom: 13px;
+            }
+
+            #social-selector{
+                margin-top: 16px;
+            }
+        }
+
+        .edit-profile-buttons {
+            display: flex;
+            flex-direction: row;
+
+            button {
+                margin-right: 15px;
+            }
+        }
+    }
+}
+
