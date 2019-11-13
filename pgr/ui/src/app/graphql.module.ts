@@ -9,10 +9,12 @@ const uri = 'http://localhost:8000/graphql/'; // <-- add the URL of the GraphQL 
 
 export function createApollo(httpLink: HttpLink) {
     const authMiddleware = new ApolloLink((operation, forward) => {
-        operation.setContext({
-            headers: new HttpHeaders().set('Authorization',
-                localStorage.getItem("token")? `JWT ${localStorage.getItem("token")}` : null)
-        });
+        if (localStorage.getItem("token")) {
+            operation.setContext({
+                headers: new HttpHeaders().set('Authorization',
+                    localStorage.getItem("token") ? `JWT ${localStorage.getItem("token")}` : null)
+            });
+        }
 
         return forward(operation);
     });
