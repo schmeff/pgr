@@ -1,3 +1,6 @@
+import base64
+
+from django.core.files.base import ContentFile
 from django.contrib.auth import get_user_model
 from .models import Profile
 
@@ -17,6 +20,10 @@ class UserType(DjangoObjectType):
 class ProfileType(DjangoObjectType):
     class Meta:
         model = Profile
+
+
+class ProfileImage(graphene.ObjectType):
+    profile_image = graphene.String()
 
 
 class CreateUser(graphene.Mutation):
@@ -63,12 +70,12 @@ class SaveUserProfile(graphene.Mutation):
     success = graphene.Boolean()
 
     class Arguments:
-        show_email = graphene.Boolean()
         name = graphene.String()
         bio = graphene.String()
+        image_url = graphene.String()
 
     @login_required
-    def mutate(self, info, name, bio):
+    def mutate(self, info, name, bio, image_url=None):
         user = info.context.user
 
         if user is None:
@@ -81,6 +88,20 @@ class SaveUserProfile(graphene.Mutation):
 
         existing_profile.name = name
         existing_profile.bio = bio
+
+        if image_url is not None:
+            if "data:image/png;base64," not in image_url:
+                raise GraphQLError("Invalid file format")
+
+            file_format, image_string = image_url.split(';base64,')
+            ext = file_format.split('/')[-1]
+
+            image_file = ContentFile(base64.b64decode(image_string), name='{}_image.{}'.format(user.username, ext))
+
+            if existing_profile.profile_image is not None:
+                existing_profile.profile_image.delete()
+
+            existing_profile.profile_image = image_file
 
         existing_profile.save()
         success = True
@@ -95,6 +116,7 @@ class Mutation(graphene.ObjectType):
 
 class Query(graphene.ObjectType):
     profile_edit = graphene.Field(ProfileType, username=graphene.String())
+    profile_image = graphene.Field(ProfileImage, username=graphene.String())
 
     @login_required
     def resolve_profile_edit(self, info, username=None):
@@ -108,3 +130,26 @@ class Query(graphene.ObjectType):
             profile.save()
 
         return profile
+
+    def resolve_profile_image(self, info, username=None):
+        if username is None:
+            raise GraphQLError("No username was specified")
+
+        user = get_user_model().objects.filter(username=username).first()
+        if user is None:
+            raise GraphQLError("User was not found")
+
+        profile = Profile.objects.filter(user=user).first()
+        if profile is None:
+            raise GraphQLError("Could not find user profile")
+
+        if profile.profile_image.name is not None:
+            # profile_image = profile.profile_image.file
+            profile_image = profile.profile_image.read()
+            profile_image = base64.standard_b64encode(profile_image)
+        else:
+            profile_image = None
+
+        return ProfileImage(
+            profile_image=profile_image
+        )

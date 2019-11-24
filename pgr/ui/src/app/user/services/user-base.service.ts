@@ -30,10 +30,26 @@ export class UserBaseService {
             .valueChanges;
     }
 
-    saveUserProfile(name, bio) {
+    getUserProfileImage(username: string) {
+        const getUserProfileImage = gql(`
+            query {
+                profileImage(username: "${username}"){
+                    profileImage
+                }
+            }
+        `);
+
+        return this.apollo
+            .watchQuery({
+                query: getUserProfileImage
+            })
+            .valueChanges;
+    }
+
+    saveUserProfile(name, bio, imageUrl) {
         const saveProfile = gql(`
             mutation($bio: String!) {
-                saveUserProfile(name: "${name}", bio: $bio){
+                saveUserProfile(name: "${name}", bio: $bio, imageUrl: "${imageUrl}"){
                     success
                 } 
             }

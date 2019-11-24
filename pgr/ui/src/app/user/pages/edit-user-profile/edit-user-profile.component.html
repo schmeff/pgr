@@ -1,15 +1,46 @@
 <div class="profile-container">
+    <div class="profile-image-container">
+
+    </div>
     <div class="profile-fields-container">
         <form
             [formGroup]="editProfileForm"
             class="edit-profile-form">
             <h2>My Account</h2>
 
-            <label for="username">Username</label>
-            <p id="username">{{username$ | async}}</p>
+            <div class="profile-pic-basic-info">
+                <mat-icon
+                    class="profile-pic-default"
+                    (click)="openFileSelector()"
+                    matTooltip="Change Profile Image"
+                    matTooltipClass="profile-pic-tooltip"
+                    *ngIf="!profileImageURL"
+                >account_circle
+                </mat-icon>
+                <img
+                    *ngIf="profileImageURL"
+                    [src]="profileImageURL"
+                    alt=""
+                    class="profile-pic"
+                    matTooltip="Change Profile Image"
+                    matTooltipClass="profile-pic-tooltip"
+                    (click)="openFileSelector()">
+                <input
+                    #fileSelector
+                    type="file"
+                    class="image-input"
+                    accept=".tif,.tiff,.jpeg,.jpg,.png"
+                    (change)="previewProfileImage($event)">
 
-            <label for="email">Email</label>
-            <p id="email">{{email}}</p>
+
+                <div class="profile-basic-info">
+                    <label for="username">Username</label>
+                    <p id="username">{{username$ | async}}</p>
+
+                    <label for="email">Email</label>
+                    <p id="email">{{email}}</p>
+                </div>
+            </div>
 
             <mat-form-field appearance="outline">
                 <mat-label>Name</mat-label>

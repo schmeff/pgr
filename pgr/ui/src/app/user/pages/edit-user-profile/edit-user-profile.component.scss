@@ -1,5 +1,6 @@
 @import "~src/styles/colors";
 
+
 .profile-container {
     width: 100%;
     margin-top: 50px;
@@ -29,9 +30,53 @@
                 margin-bottom: 13px;
             }
 
-            #social-selector{
+            #social-selector {
                 margin-top: 16px;
             }
+
+            .profile-pic-basic-info {
+                display: flex;
+                flex-direction: row;
+
+                .profile-pic-default {
+                    font-size: 100px;
+                    height: 100px;
+                    width: 100px;
+                    margin-right: 20px;
+                    z-index: 10;
+                }
+
+                .image-input {
+                    visibility: hidden;
+                    position: absolute;
+                    width: 100px;
+                    height: 100px;
+                }
+
+                .profile-pic-default:hover {
+                    cursor: pointer;
+                    opacity: 0.7;
+                }
+
+                .profile-basic-info {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .profile-pic{
+                    height: 100px;
+                    width: 100px;
+                    margin-right: 20px;
+                    z-index: 10;
+                    border-radius: 100%;
+                }
+
+                .profile-pic:hover {
+                    cursor: pointer;
+                    opacity: 0.7;
+                }
+            }
+
         }
 
         .edit-profile-buttons {
@@ -44,4 +89,3 @@
         }
     }
 }
-
