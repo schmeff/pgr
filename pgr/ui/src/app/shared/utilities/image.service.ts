@@ -43,8 +43,4 @@ export class ImageService {
         img.src = source;
     }
 
-    formatImage(imageString: string){
-        return `data:image/png;base64,${imageString.split("b'")[1].replace("'", "")}`;
-    }
-
 }

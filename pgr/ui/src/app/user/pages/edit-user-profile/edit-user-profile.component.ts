@@ -43,8 +43,7 @@ export class EditUserProfileComponent implements OnInit, OnDestroy {
                 private route: ActivatedRoute,
                 private userBaseService: UserBaseService,
                 private snackBar: MatSnackBar,
-                private imageService: ImageService,
-                private domSanitizer: DomSanitizer) {
+                private imageService: ImageService) {
     }
 
     ngOnInit() {
@@ -100,18 +99,6 @@ export class EditUserProfileComponent implements OnInit, OnDestroy {
                     this.oldInfo = newInfo;
                 }
             });
-            // if(this.profileImageURL){
-            //     this.userBaseService.uploadProfileImage(this.profileImageURL)
-            //     .pipe(takeUntil(this.$ngDestroy))
-            //     .subscribe((response: any) => {
-            //         if(response.data.uploadUserProfileImage.success){
-            //             this.snackBar.open("Profile image has been updated", "Close", {
-            //                 duration: 2000
-            //             });
-            //             this.profileImageChanged = false;
-            //         }
-            //     });
-            // }
         }
         else {
             this.snackBar.open("Account information is already current", "Close", {

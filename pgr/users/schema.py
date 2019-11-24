@@ -146,7 +146,7 @@ class Query(graphene.ObjectType):
         if profile.profile_image.name is not None:
             # profile_image = profile.profile_image.file
             profile_image = profile.profile_image.read()
-            profile_image = base64.standard_b64encode(profile_image)
+            profile_image = "data:image/png;base64," + str(base64.standard_b64encode(profile_image)).split("'")[1]
         else:
             profile_image = None
 

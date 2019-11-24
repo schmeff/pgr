@@ -13,8 +13,7 @@ export class UserService {
     username$ = this.usernameBS.asObservable();
 
     constructor(
-        private userBaseService: UserBaseService,
-        private imageService: ImageService) {
+        private userBaseService: UserBaseService) {
     }
 
 
@@ -33,7 +32,7 @@ export class UserService {
                 return this.userBaseService.getUserProfileImage(username);
             }),
             map((response: any)=>{
-                return this.imageService.formatImage(response.data.profileImage.profileImage);
+                return response.data.profileImage.profileImage;
             })
         );
 
