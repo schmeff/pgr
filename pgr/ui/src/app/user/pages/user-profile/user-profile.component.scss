@@ -1,0 +1,71 @@
+@import "~src/styles/colors";
+@import "~src/styles/custom-theme";
+
+.profile-container {
+    width: 100%;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .profile-fields-container {
+        border-radius: 10px;
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        padding: 10px 30px 30px 30px;
+
+        background-color: $secondary-dark-background;
+
+        .actions-row{
+            display: flex;
+            flex-direction: row-reverse;
+            height: 20px;
+
+            .edit-icon{
+                margin-right: -20px;
+            }
+
+            .edit-icon:hover {
+                color: $primary-theme-color;
+                cursor: pointer;
+            }
+        }
+
+        .title-row {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-end;
+
+            .profile-pic-default {
+                font-size: 100px;
+                height: 100px;
+                width: 100px;
+                margin-right: 20px;
+                z-index: 10;
+            }
+
+            .profile-pic {
+                height: 100px;
+                width: 100px;
+                margin-right: 20px;
+                z-index: 10;
+                border-radius: 100%;
+            }
+        }
+
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            opacity: 0.7;
+        }
+
+        #name, #bio {
+            margin-top: 5px;
+        }
+    }
+}

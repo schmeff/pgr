@@ -11,9 +11,10 @@ import {
     MatIconModule,
     MatInputModule, MatSelectModule, MatSnackBarModule, MatTooltipModule
 } from "@angular/material";
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 
 @NgModule({
-    declarations: [EditUserProfileComponent],
+    declarations: [EditUserProfileComponent, UserProfileComponent],
     imports: [
         CommonModule,
         UsersRoutingModule,

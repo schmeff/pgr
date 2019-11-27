@@ -1,13 +1,12 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {UserBaseService} from "../../services/user-base.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../services/user.service";
 import {MatSnackBar} from "@angular/material";
 import {ImageService} from "../../../shared/utilities/image.service";
 import {BehaviorSubject, Subject} from "rxjs";
-import {takeUntil} from "rxjs/operators";
-import {DomSanitizer} from "@angular/platform-browser";
+import {takeUntil, timeout} from "rxjs/operators";
 
 @Component({
     selector: 'pgr-edit-user-profile',
@@ -43,15 +42,17 @@ export class EditUserProfileComponent implements OnInit, OnDestroy {
                 private route: ActivatedRoute,
                 private userBaseService: UserBaseService,
                 private snackBar: MatSnackBar,
-                private imageService: ImageService) {
+                private imageService: ImageService,
+                private router: Router) {
     }
 
     ngOnInit() {
         this.userService.setUsername(this.route.snapshot.params.username);
+        this.userService.setImageUsername(this.route.snapshot.params.username);
 
         this.profileImage$
             .pipe(takeUntil(this.$ngDestroy))
-            .subscribe((profileImageURL: any)=>{
+            .subscribe((profileImageURL: any) => {
                 this.imageDataURLBS.next(profileImageURL);
             });
 
@@ -87,20 +88,17 @@ export class EditUserProfileComponent implements OnInit, OnDestroy {
             bio: this.editProfileForm.controls["bio"].value
         };
 
-        let imageUrl = this.profileImageURL? this.profileImageURL : undefined;
+        let imageUrl = this.profileImageURL ? this.profileImageURL : undefined;
 
         if (JSON.stringify(newInfo) !== JSON.stringify(this.oldInfo) || this.profileImageChanged) {
             this.userBaseService.saveUserProfile(newInfo.name, newInfo.bio, imageUrl)
-            .subscribe((response: any) => {
-                if (response.data.saveUserProfile.success) {
-                    this.snackBar.open("Account information has been updated", "Close", {
-                        duration: 2000
-                    });
-                    this.oldInfo = newInfo;
-                }
-            });
-        }
-        else {
+                .subscribe((response: any) => {
+                    if (response.data.saveUserProfile.success) {
+                        this.oldInfo = newInfo;
+                        this.router.navigate([`/users/${this.route.snapshot.params.username}/profile`]);
+                    }
+                });
+        } else {
             this.snackBar.open("Account information is already current", "Close", {
                 duration: 2000
             });

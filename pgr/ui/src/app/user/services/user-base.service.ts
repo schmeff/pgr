@@ -25,9 +25,29 @@ export class UserBaseService {
 
         return this.apollo
             .watchQuery({
-                query: getUserProfileEdit
+                query: getUserProfileEdit,
+                fetchPolicy: "no-cache"
             })
             .valueChanges;
+    }
+
+    getUserPublicProfile(username: string) {
+        const getUserPublicProfile = gql(`
+            query {
+                publicProfile(username: "${username}"){
+                    username,
+                    name,
+                    bio
+                }
+            }
+        `);
+
+        return this.apollo
+            .watchQuery({
+                query: getUserPublicProfile,
+                fetchPolicy: "no-cache"
+            }).valueChanges;
+
     }
 
     getUserProfileImage(username: string) {
@@ -41,9 +61,24 @@ export class UserBaseService {
 
         return this.apollo
             .watchQuery({
-                query: getUserProfileImage
+                query: getUserProfileImage,
+                fetchPolicy: "no-cache"
             })
             .valueChanges;
+    }
+
+    userExists(username: String) {
+        const userExists = gql(`
+            query {
+                userExists(username: "${username}"){
+                    exists
+                }
+            }
+        `);
+
+        return this.apollo.watchQuery({
+            query: userExists
+        }).valueChanges;
     }
 
     saveUserProfile(name, bio, imageUrl) {

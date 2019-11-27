@@ -26,6 +26,16 @@ class ProfileImage(graphene.ObjectType):
     profile_image = graphene.String()
 
 
+class PublicProfileType(graphene.ObjectType):
+    username = graphene.String()
+    name = graphene.String()
+    bio = graphene.String()
+
+
+class UserExistsType(graphene.ObjectType):
+    exists = graphene.Boolean()
+
+
 class CreateUser(graphene.Mutation):
     user = graphene.Field(UserType)
 
@@ -117,6 +127,8 @@ class Mutation(graphene.ObjectType):
 class Query(graphene.ObjectType):
     profile_edit = graphene.Field(ProfileType, username=graphene.String())
     profile_image = graphene.Field(ProfileImage, username=graphene.String())
+    public_profile = graphene.Field(PublicProfileType, username=graphene.String())
+    user_exists = graphene.Field(UserExistsType, username=graphene.String())
 
     @login_required
     def resolve_profile_edit(self, info, username=None):
@@ -130,6 +142,27 @@ class Query(graphene.ObjectType):
             profile.save()
 
         return profile
+
+    def resolve_public_profile(self, info, username=None):
+        if username is None:
+            raise GraphQLError("A username was not provided")
+
+        user = get_user_model().objects.filter(username=username).first()
+        if user is None:
+            raise GraphQLError("User Profile was not found")
+
+        profile = Profile.objects.filter(user=user).first()
+        if profile is None:
+            profile = Profile(user=user)
+            profile.save()
+
+        public_profile = PublicProfileType(
+            username=username,
+            name=profile.name,
+            bio=profile.bio
+        )
+
+        return public_profile
 
     def resolve_profile_image(self, info, username=None):
         if username is None:
@@ -153,3 +186,18 @@ class Query(graphene.ObjectType):
         return ProfileImage(
             profile_image=profile_image
         )
+
+    def resolve_user_exists(self, info, username=None):
+        if username is None:
+            return UserExistsType(exists=False)
+
+        user = get_user_model().objects.filter(username=username).first()
+        exists = False
+        if user is None:
+            exists = False
+        else:
+            exists = True
+
+        return UserExistsType(exists=exists)
+
+

@@ -1,7 +1,4 @@
 <div class="profile-container">
-    <div class="profile-image-container">
-
-    </div>
     <div class="profile-fields-container">
         <form
             [formGroup]="editProfileForm"
@@ -61,7 +58,8 @@
                     matInput
                     rows="5"
                     maxlength="2000"
-                    formControlName="bio"></textarea>
+                    formControlName="bio"
+                    class="bio-text-area"></textarea>
                 <mat-error *ngIf="editProfileForm.controls['bio'].hasError('maxLength')">
                     Bio is too long
                 </mat-error>
@@ -70,7 +68,7 @@
 
         <div class="edit-profile-buttons">
             <button mat-raised-button color="primary" (click)="saveProfile()">Save</button>
-            <button mat-raised-button>Cancel</button>
+            <button mat-raised-button routerLink="/users/{{username$ | async}}/profile">Cancel</button>
         </div>
     </div>
 </div>

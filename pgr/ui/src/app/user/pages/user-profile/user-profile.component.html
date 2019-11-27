@@ -1,0 +1,36 @@
+<div class="profile-container">
+    <div class="profile-fields-container">
+        <div class="actions-row">
+            <mat-icon
+                class="edit-icon"
+                matTooltip="Edit Profile"
+                *ngIf="isUser"
+                routerLink="/users/{{username}}/profile/edit">edit
+            </mat-icon>
+        </div>
+        <div class="title-row">
+            <mat-icon
+                class="profile-pic-default"
+                *ngIf="!(profileImage$ | async)"
+            >account_circle
+            </mat-icon>
+            <img
+                *ngIf="(profileImage$ | async)"
+                [src]="profileImage$ | async"
+                alt=""
+                class="profile-pic"
+            >
+            <h2>{{username}}</h2>
+        </div>
+        <div class="profile-info" *ngIf="(publicProfileInfo$ | async) as profileInfo">
+            <div class="profile-name" *ngIf="profileInfo.name">
+                <label for="name">Name</label>
+                <p id="name">{{profileInfo.name}}</p>
+            </div>
+            <div class="profile-bio" *ngIf="profileInfo.bio">
+                <label for="bio">Bio</label>
+                <p id="bio">{{profileInfo.bio}}</p>
+            </div>
+        </div>
+    </div>
+</div>

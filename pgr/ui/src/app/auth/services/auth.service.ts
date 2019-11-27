@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {Apollo} from "apollo-angular";
 import gql from 'graphql-tag';
 import {Observable} from "rxjs";
-import {Router} from "@angular/router";
 
 
 @Injectable({
@@ -11,8 +10,7 @@ import {Router} from "@angular/router";
 export class AuthService {
 
     constructor(
-        private apollo: Apollo,
-        private router: Router
+        private apollo: Apollo
     ) {
     }
 
@@ -79,10 +77,6 @@ export class AuthService {
     }
 
     getUsername(){
-        if(!localStorage.getItem("username")){
-            this.signOut();
-            this.router.navigate(['/auth/signin']);
-        }
         return localStorage.getItem("username");
     }
 
