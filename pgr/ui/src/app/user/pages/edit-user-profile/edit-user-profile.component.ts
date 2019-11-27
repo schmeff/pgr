@@ -72,7 +72,6 @@ export class EditUserProfileComponent implements OnInit, OnDestroy {
         this.imageDataURL$
             .pipe(takeUntil(this.$ngDestroy))
             .subscribe((imageDataURL: any) => {
-                this.profileImageChanged = true;
                 this.profileImageURL = imageDataURL
             });
     }
@@ -118,6 +117,7 @@ export class EditUserProfileComponent implements OnInit, OnDestroy {
             reader.onload = () => {
                 let imageBS = this.imageDataURLBS;
                 this.imageService.resizeImage(reader.result, imageBS);
+                this.profileImageChanged = true;
             }
         }
     }
