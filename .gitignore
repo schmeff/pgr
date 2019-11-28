@@ -9,3 +9,7 @@ pgr/pgr/__pycache__/
 pgr/users/migrations/__pycache__/
 
 pgr/profile_images/
+
+pgr/games/__pycache__/
+
+pgr/games/migrations/__pycache__/
