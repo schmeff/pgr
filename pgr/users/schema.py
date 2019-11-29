@@ -36,6 +36,10 @@ class UserExistsType(graphene.ObjectType):
     exists = graphene.Boolean()
 
 
+class UserIsStaffType(graphene.ObjectType):
+    isStaff = graphene.Boolean()
+
+
 class CreateUser(graphene.Mutation):
     user = graphene.Field(UserType)
 
@@ -129,6 +133,7 @@ class Query(graphene.ObjectType):
     profile_image = graphene.Field(ProfileImage, username=graphene.String())
     public_profile = graphene.Field(PublicProfileType, username=graphene.String())
     user_exists = graphene.Field(UserExistsType, username=graphene.String())
+    user_is_staff = graphene.Field(UserIsStaffType)
 
     @login_required
     def resolve_profile_edit(self, info, username=None):
@@ -200,4 +205,9 @@ class Query(graphene.ObjectType):
 
         return UserExistsType(exists=exists)
 
+    def resolve_user_is_staff(self, info):
+        user = info.context.user
 
+        found_user = get_user_model().objects.filter(username=user.username)
+
+        return UserIsStaffType(isStaff=found_user.is_staff)
