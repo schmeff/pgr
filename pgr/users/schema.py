@@ -36,8 +36,8 @@ class UserExistsType(graphene.ObjectType):
     exists = graphene.Boolean()
 
 
-class UserIsStaffType(graphene.ObjectType):
-    isStaff = graphene.Boolean()
+class IsStaffMemberType(graphene.ObjectType):
+    is_staff = graphene.Boolean()
 
 
 class CreateUser(graphene.Mutation):
@@ -133,7 +133,7 @@ class Query(graphene.ObjectType):
     profile_image = graphene.Field(ProfileImage, username=graphene.String())
     public_profile = graphene.Field(PublicProfileType, username=graphene.String())
     user_exists = graphene.Field(UserExistsType, username=graphene.String())
-    user_is_staff = graphene.Field(UserIsStaffType)
+    is_staff_member = graphene.Field(IsStaffMemberType)
 
     @login_required
     def resolve_profile_edit(self, info, username=None):
@@ -205,9 +205,6 @@ class Query(graphene.ObjectType):
 
         return UserExistsType(exists=exists)
 
-    def resolve_user_is_staff(self, info):
-        user = info.context.user
-
-        found_user = get_user_model().objects.filter(username=user.username)
-
-        return UserIsStaffType(isStaff=found_user.is_staff)
+    @login_required
+    def resolve_is_staff_member(self, info):
+        return IsStaffMemberType(is_staff=info.context.user.is_staff)

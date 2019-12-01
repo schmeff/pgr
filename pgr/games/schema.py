@@ -1,7 +1,6 @@
 import base64
 
 from django.core.files.base import ContentFile
-from django.contrib.auth import get_user_model
 import graphene
 from graphene_django import DjangoObjectType
 from graphql import GraphQLError
@@ -9,19 +8,11 @@ from graphql_jwt.decorators import login_required
 from .models import Game
 from django.contrib.admin.views.decorators import staff_member_required
 
-
-class UserType(DjangoObjectType):
-    class Meta:
-        model = get_user_model()
-
-
 class GameType(DjangoObjectType):
     class Meta:
         model = Game
 
 
-@login_required
-@staff_member_required
 class CreateGame(graphene.Mutation):
     success = graphene.Boolean()
 
@@ -33,6 +24,8 @@ class CreateGame(graphene.Mutation):
         release_date = graphene.Date()
         game_cover_image = graphene.String()
 
+    @login_required
+    @staff_member_required
     def mutate(self,
                info,
                name,

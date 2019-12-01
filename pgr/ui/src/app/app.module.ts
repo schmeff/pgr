@@ -8,6 +8,7 @@ import {GraphQLModule} from './graphql.module';
 import {HttpClientModule} from '@angular/common/http';
 import {HomeModule} from "./home/home.module";
 import {NavigationModule} from "./navigation/navigation.module";
+import {AdminModule} from "./admin/admin.module";
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import {NavigationModule} from "./navigation/navigation.module";
         GraphQLModule,
         HttpClientModule,
         HomeModule,
-        NavigationModule
+        NavigationModule,
+        AdminModule
     ],
     providers: [],
     bootstrap: [AppComponent]

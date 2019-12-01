@@ -72,6 +72,20 @@ export class AuthService {
             });
     }
 
+    isStaffMember() {
+        const isStaffMember = gql(`
+            query {
+                isStaffMember{
+                    isStaff
+                }
+            }
+        `);
+
+        return this.apollo.watchQuery({
+            query: isStaffMember
+        }).valueChanges;
+    }
+
     getToken() {
         return localStorage.getItem('token');
     }

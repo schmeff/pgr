@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../auth/services/auth.service";
 import {Router} from "@angular/router";
+import {AuthDataService} from "../auth/services/auth-data.service";
 
 @Component({
     selector: 'pgr-navigation',
@@ -11,9 +12,13 @@ export class NavigationComponent implements OnInit {
     signedIn: boolean = false;
     username: string = undefined;
 
+    isStaff$ = this.authDataService.isStaffMember$;
+
+
     constructor(
         private authService: AuthService,
-        private router: Router
+        private router: Router,
+        private authDataService: AuthDataService
     ) {
     }
 
@@ -21,6 +26,7 @@ export class NavigationComponent implements OnInit {
         this.signedIn = this.authService.signedIn();
         if(this.signedIn){
             this.username = this.authService.getUsername();
+            this.authDataService.setIsSignedIn(true);
         }
     }
 
