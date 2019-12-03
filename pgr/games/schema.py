@@ -4,16 +4,16 @@ from django.core.files.base import ContentFile
 import graphene
 from graphene_django import DjangoObjectType
 from graphql import GraphQLError
-from graphql_jwt.decorators import login_required
+from graphql_jwt.decorators import login_required, staff_member_required
 from .models import Game
-from django.contrib.admin.views.decorators import staff_member_required
+
 
 class GameType(DjangoObjectType):
     class Meta:
         model = Game
 
 
-class CreateGame(graphene.Mutation):
+class AddGame(graphene.Mutation):
     success = graphene.Boolean()
 
     class Arguments:
@@ -21,10 +21,9 @@ class CreateGame(graphene.Mutation):
         summary = graphene.String()
         parental_rating = graphene.String()
         publisher = graphene.String()
-        release_date = graphene.Date()
+        release_date = graphene.String()
         game_cover_image = graphene.String()
 
-    @login_required
     @staff_member_required
     def mutate(self,
                info,
@@ -39,6 +38,9 @@ class CreateGame(graphene.Mutation):
         existing_game = Game.objects.filter(name=name).first()
         if existing_game:
             raise GraphQLError("A game with the same name has already been added")
+
+        if release_date == '':
+            release_date = None
 
         game = Game(
             name=name,
@@ -62,8 +64,8 @@ class CreateGame(graphene.Mutation):
 
         game.save()
 
-        return CreateGame(success=True)
+        return AddGame(success=True)
 
 
 class Mutation(graphene.ObjectType):
-    create_game = CreateGame.Field()
+    add_game = AddGame.Field()

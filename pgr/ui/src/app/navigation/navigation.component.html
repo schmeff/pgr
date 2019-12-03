@@ -13,10 +13,16 @@
                 <mat-icon>account_circle</mat-icon>
                 <span>My Account</span>
             </button>
-            <button *ngIf="isStaff$ | async" mat-menu-item routerLink="/admin/add-game">
+            <button *ngIf="isStaff$ | async" mat-menu-item [matMenuTriggerFor]="adminMenu">
                 <mat-icon>supervisor_account</mat-icon>
                 <span>Admin</span>
             </button>
+            <mat-menu #adminMenu="matMenu">
+                <button mat-menu-item routerLink="/admin/add-game">
+                    <mat-icon>add_box</mat-icon>
+                    <span>Add Game</span>
+                </button>
+            </mat-menu>
             <button mat-menu-item (click)="signOut()">
                 <mat-icon>exit_to_app</mat-icon>
                 <span>Sign Out</span>

@@ -1,0 +1,60 @@
+<div class="add-game-container">
+    <form
+        class="add-game-form-container"
+        [formGroup]="addGameForm"
+    >
+        <h2>Add Game</h2>
+        <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input
+                type="text"
+                matInput
+                maxlength="100"
+                formControlName="name"
+                autocomplete="off"
+                class="game-name"
+            >
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Summary</mat-label>
+            <textarea
+                matInput
+                rows="8"
+                formControlName="summary"
+                class="summary-text-area"
+            ></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Publisher</mat-label>
+            <input
+                type="text"
+                matInput
+                maxLength="100"
+                formControlName="publisher"
+                autocomplete="off"
+            >
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Parental Rating</mat-label>
+            <mat-select
+                formControlName="parentalRating">
+                <mat-option *ngFor="let rating of parentalRatings" [value]="rating">
+                    {{rating}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <input
+                matInput
+                [matDatepicker]="releaseDate"
+                placeholder="Choose a date"
+                formControlName="releaseDate"
+                autocomplete="off">
+            <mat-datepicker-toggle matSuffix [for]="releaseDate"></mat-datepicker-toggle>
+            <mat-datepicker #releaseDate></mat-datepicker>
+        </mat-form-field>
+    </form>
+    <div class="action-buttons">
+        <button mat-raised-button color="primary" (click)="addGame()">Add Game</button>
+    </div>
+</div>
