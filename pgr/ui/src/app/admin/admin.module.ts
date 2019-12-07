@@ -1,10 +1,10 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {AdminRoutingModule} from "./admin-routing.module";
-import {AddGameComponent} from './pages/add-game/add-game.component';
+import {AddGameComponent, CoverImagePreviewDialog} from './pages/add-game/add-game.component';
 import {
     MatButtonModule,
-    MatDatepickerModule,
+    MatDatepickerModule, MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
     MatNativeDateModule, MatProgressSpinnerModule,
@@ -13,7 +13,10 @@ import {
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
-    declarations: [AddGameComponent],
+    declarations: [
+        AddGameComponent,
+        CoverImagePreviewDialog
+    ],
     imports: [
         CommonModule,
         AdminRoutingModule,
@@ -26,7 +29,11 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
         MatNativeDateModule,
         MatButtonModule,
         MatSnackBarModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        MatDialogModule
+    ],
+    entryComponents: [
+        CoverImagePreviewDialog
     ]
 })
 export class AdminModule {

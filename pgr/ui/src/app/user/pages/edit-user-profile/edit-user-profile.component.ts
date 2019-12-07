@@ -116,7 +116,7 @@ export class EditUserProfileComponent implements OnInit, OnDestroy {
             reader.readAsDataURL(file);
             reader.onload = () => {
                 let imageBS = this.imageDataURLBS;
-                this.imageService.resizeImage(reader.result, imageBS);
+                this.imageService.resizeProfileImage(reader.result, imageBS);
                 this.profileImageChanged = true;
             }
         }

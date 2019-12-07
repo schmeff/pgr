@@ -7,7 +7,7 @@ class Game(models.Model):
     name = models.CharField(max_length=100)
     summary = models.TextField(max_length=2000, null=True)
     parental_rating = models.CharField(max_length=20, null=True)
-    publisher = models.CharField(max_length=50, null=True)
+    developer = models.CharField(max_length=50, null=True)
     release_date = models.DateField(null=True)
     critic_rating = models.SmallIntegerField(null=True)
     player_rating = models.SmallIntegerField(null=True)

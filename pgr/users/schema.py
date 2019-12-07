@@ -110,7 +110,7 @@ class SaveUserProfile(graphene.Mutation):
             file_format, image_string = image_url.split(';base64,')
             ext = file_format.split('/')[-1]
 
-            image_file = ContentFile(base64.b64decode(image_string), name='{}_image.{}'.format(user.username, ext))
+            image_file = ContentFile(base64.b64decode(image_string), name='profile_image.{}'.format(ext))
 
             if existing_profile.profile_image is not None:
                 existing_profile.profile_image.delete()

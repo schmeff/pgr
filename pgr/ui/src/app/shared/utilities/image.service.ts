@@ -8,7 +8,7 @@ export class ImageService {
     constructor() {
     }
 
-    resizeImage(source: any, dataURLBS: BehaviorSubject<any>) {
+    resizeProfileImage(source: any, dataURLBS: BehaviorSubject<any>) {
         let canvas = document.createElement("canvas");
         let ctx = canvas.getContext("2d");
         let img = new Image();

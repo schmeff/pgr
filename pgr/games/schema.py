@@ -4,7 +4,7 @@ from django.core.files.base import ContentFile
 import graphene
 from graphene_django import DjangoObjectType
 from graphql import GraphQLError
-from graphql_jwt.decorators import login_required, staff_member_required
+from graphql_jwt.decorators import staff_member_required
 from .models import Game
 
 
@@ -20,7 +20,7 @@ class AddGame(graphene.Mutation):
         name = graphene.String(required=True)
         summary = graphene.String()
         parental_rating = graphene.String()
-        publisher = graphene.String()
+        developer = graphene.String()
         release_date = graphene.String()
         game_cover_image = graphene.String()
 
@@ -30,7 +30,7 @@ class AddGame(graphene.Mutation):
                name,
                summary=None,
                parental_rating=None,
-               publisher=None,
+               developer=None,
                release_date=None,
                game_cover_image=None):
         user = info.context.user
@@ -46,19 +46,16 @@ class AddGame(graphene.Mutation):
             name=name,
             summary=summary,
             parental_rating=parental_rating,
-            publisher=publisher,
+            developer=developer,
             release_date=release_date,
             created_by=user
         )
 
         if game_cover_image is not None:
-            if "data:image/png;base64," not in game_cover_image:
-                raise GraphQLError("Invalid image format")
-
             file_format, image_string = game_cover_image.split(';base64,')
             ext = file_format.split('/')[-1]
 
-            image_file = ContentFile(base64.b64decode(image_string), name='{}_image.{}'.format(name, ext))
+            image_file = ContentFile(base64.b64decode(image_string), name='game_cover_image.{}'.format(ext))
 
             game.game_cover_image = image_file
 

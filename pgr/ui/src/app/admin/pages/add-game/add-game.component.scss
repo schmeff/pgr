@@ -19,6 +19,14 @@
         .add-game-form-container{
             display: flex;
             flex-direction: column;
+
+            .image-upload-container{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                height: 50px;
+                margin-bottom: 30px;
+            }
         }
     }
 }

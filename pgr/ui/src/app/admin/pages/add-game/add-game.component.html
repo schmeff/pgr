@@ -25,12 +25,12 @@
             ></textarea>
         </mat-form-field>
         <mat-form-field appearance="outline">
-            <mat-label>Publisher</mat-label>
+            <mat-label>Developer</mat-label>
             <input
                 type="text"
                 matInput
                 maxLength="100"
-                formControlName="publisher"
+                formControlName="developer"
                 autocomplete="off"
             >
         </mat-form-field>
@@ -49,10 +49,22 @@
                 [matDatepicker]="releaseDate"
                 placeholder="Choose a date"
                 formControlName="releaseDate"
-                autocomplete="off">
+                autocomplete="off"
+                >
             <mat-datepicker-toggle matSuffix [for]="releaseDate"></mat-datepicker-toggle>
             <mat-datepicker #releaseDate></mat-datepicker>
         </mat-form-field>
+        <div class="image-upload-container">
+            <mat-label>Upload Image</mat-label>
+            <div>
+                <input
+                    type="file"
+                    accept=".tif,.tiff,.jpeg,.jpg,.png"
+                    (change)="setGameCoverImage($event)"
+                />
+                <button mat-raised-button *ngIf="coverImageURL" (click)="openImageCoverPreview()">Preview</button>
+            </div>
+        </div>
     </form>
     <div class="action-buttons">
         <button mat-raised-button color="primary" (click)="addGame()">Add Game</button>

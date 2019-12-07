@@ -12,15 +12,16 @@ export class AdminService {
     ) {
     }
 
-    addGame(name: string, summary: string, publisher: string, parentalRating: string, releaseDate: string, coverImage: string){
+    addGame(name: string, summary: string, developer: string, parentalRating: string, releaseDate: string, coverImage: string){
         const addGame = gql(`
             mutation($summary: String!){
                 addGame(
                     name: "${name}",
                     summary: $summary,
-                    publisher: "${publisher}",
+                    developer: "${developer}",
                     parentalRating: "${parentalRating}",
-                    releaseDate: "${releaseDate}"){
+                    releaseDate: "${releaseDate}",
+                    gameCoverImage: "${coverImage}"){
                         success
                     }
             }
