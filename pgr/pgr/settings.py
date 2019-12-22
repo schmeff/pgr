@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'graphene_django',
     'users',
     'games',
+    'reviews',
     'corsheaders'
 ]
 

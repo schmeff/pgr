@@ -15,3 +15,7 @@ pgr/games/__pycache__/
 pgr/games/migrations/__pycache__/
 
 pgr/game_cover_images/
+
+pgr/reviews/__pycache__/
+
+pgr/reviews/migrations/__pycache__/
