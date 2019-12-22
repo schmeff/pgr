@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {NavigationComponent} from './navigation.component';
 import {MatButtonModule, MatIconModule, MatMenuModule, MatToolbarModule} from "@angular/material";
 import {RouterModule} from "@angular/router";
+import {SharedModule} from "../shared/shared.module";
 
 @NgModule({
     declarations: [NavigationComponent],
@@ -16,7 +17,8 @@ import {RouterModule} from "@angular/router";
         MatButtonModule,
         MatMenuModule,
         MatButtonModule,
-        RouterModule
+        RouterModule,
+        SharedModule
     ]
 })
 export class NavigationModule {

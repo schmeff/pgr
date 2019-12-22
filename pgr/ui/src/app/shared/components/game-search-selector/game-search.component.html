@@ -1,0 +1,17 @@
+<mat-form-field appearance="outline" class="game-search-container" style="width:100%">
+    <input
+        matInput
+        placeholder="Search Games..."
+        aria-label="Game"
+        [matAutocomplete]="auto"
+        (keyup)="setSearchQuery($event.target.value)"
+        class="game-search-input">
+    <mat-autocomplete
+        #auto="matAutocomplete"
+        (optionSelected)="updateSelectedOption($event)"
+        class="game-search-autocomplete">
+        <mat-option *ngFor="let game of gameOptions">
+            <span>{{game.name}}</span>
+        </mat-option>
+    </mat-autocomplete>
+</mat-form-field>

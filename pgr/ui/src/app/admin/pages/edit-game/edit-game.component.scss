@@ -1,0 +1,30 @@
+@import "~src/styles/colors";
+
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+
+    .edit-game-container {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+
+
+        .edit-game-form-container {
+            display: flex;
+            flex-direction: column;
+            padding: 30px;
+            border-radius: 10px;
+
+            background-color: $secondary-dark-background;
+
+            .action-buttons {
+                margin-top: 20px;
+            }
+        }
+    }
+}

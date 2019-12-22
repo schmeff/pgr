@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {AdminRoutingModule} from "./admin-routing.module";
-import {AddGameComponent, CoverImagePreviewDialog} from './pages/add-game/add-game.component';
+import {AddGameComponent} from './pages/add-game/add-game.component';
 import {
     MatButtonModule,
     MatDatepickerModule, MatDialogModule,
@@ -11,11 +11,15 @@ import {
     MatSelectModule, MatSnackBarModule
 } from "@angular/material";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { EditGameComponent } from './pages/edit-game/edit-game.component';
+import {SharedModule} from "../shared/shared.module";
+import { GameCoverImagePreviewDialogComponent } from './components/game-cover-image-preview-dialog/game-cover-image-preview-dialog.component';
 
 @NgModule({
     declarations: [
         AddGameComponent,
-        CoverImagePreviewDialog
+        EditGameComponent,
+        GameCoverImagePreviewDialogComponent
     ],
     imports: [
         CommonModule,
@@ -30,10 +34,11 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
         MatButtonModule,
         MatSnackBarModule,
         MatProgressSpinnerModule,
-        MatDialogModule
+        MatDialogModule,
+        SharedModule
     ],
     entryComponents: [
-        CoverImagePreviewDialog
+        GameCoverImagePreviewDialogComponent
     ]
 })
 export class AdminModule {

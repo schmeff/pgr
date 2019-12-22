@@ -1,0 +1,85 @@
+<div class="edit-game-container">
+    <h2>Edit Game</h2>
+    <div class="game-search-container">
+        <pgr-game-search
+            (selected)="loadGame($event)"
+            class="game-search-input"
+        ></pgr-game-search>
+    </div>
+    <form
+        *ngIf="gameLoaded"
+        class="edit-game-form-container"
+        [formGroup]="editGameForm">
+        <mat-form-field appearance="outline">
+            <mat-label>
+                Name
+            </mat-label>
+            <input
+                type="text"
+                matInput
+                maxlength="100"
+                formControlName="name"
+                autocomplete="off"
+                class="game-name"
+            >
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Summary</mat-label>
+            <textarea
+                matInput
+                rows="8"
+                formControlName="summary"
+                class="summary-text-area"
+            ></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Developer</mat-label>
+            <input
+                type="text"
+                matInput
+                maxLength="100"
+                formControlName="developer"
+                autocomplete="off"
+            >
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Parental Rating</mat-label>
+            <mat-select
+                formControlName="parentalRating">
+                <mat-option *ngFor="let rating of parentalRatings" [value]="rating">
+                    {{rating}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <input
+                matInput
+                [matDatepicker]="releaseDate"
+                placeholder="Choose a date"
+                formControlName="releaseDate"
+                autocomplete="off"
+            >
+            <mat-datepicker-toggle matSuffix [for]="releaseDate"></mat-datepicker-toggle>
+            <mat-datepicker #releaseDate></mat-datepicker>
+        </mat-form-field>
+        <div class="image-upload-container">
+            <mat-label>Upload Image</mat-label>
+            <div>
+                <input
+                    type="file"
+                    accept=".tif,.tiff,.jpeg,.jpg,.png"
+                    (change)="setGameCoverImage($event)"
+                />
+                <button mat-raised-button *ngIf="gameCoverImage" (click)="openImageCoverPreview()">Preview</button>
+            </div>
+        </div>
+        <div class="action-buttons">
+            <button
+                mat-raised-button
+                color="primary"
+                (click)="saveGameEdits()"
+                [disabled]="!editGameForm.dirty && !gameCoverImageUpdated"
+            >Save</button>
+        </div>
+    </form>
+</div>

@@ -6,6 +6,7 @@ import games.schema
 
 
 class Query(users.schema.Query,
+            games.schema.Query,
             graphene.ObjectType):
     pass
 

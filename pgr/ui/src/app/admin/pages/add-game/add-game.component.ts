@@ -4,6 +4,7 @@ import {AdminService} from "../../services/admin.service";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from "@angular/material";
 import {BehaviorSubject, Subject} from "rxjs";
 import {takeUntil} from "rxjs/operators";
+import {GameCoverImagePreviewDialogComponent} from "../../components/game-cover-image-preview-dialog/game-cover-image-preview-dialog.component";
 
 @Component({
     selector: 'pgr-add-game',
@@ -28,7 +29,7 @@ export class AddGameComponent implements OnInit, OnDestroy {
     coverImageURLBS = new BehaviorSubject(undefined);
     coverImageURL$ = this.coverImageURLBS.asObservable();
 
-    coverImageURL: string = null;
+    coverImageURL: string = '';
 
     private $ngDestroy = new Subject();
 
@@ -36,7 +37,7 @@ export class AddGameComponent implements OnInit, OnDestroy {
         private adminService: AdminService,
         private snackBar: MatSnackBar,
         private el: ElementRef,
-        public dialog: MatDialog
+        private dialog: MatDialog
     ) {
     }
 
@@ -48,7 +49,8 @@ export class AddGameComponent implements OnInit, OnDestroy {
                 takeUntil(this.$ngDestroy)
             )
             .subscribe((imageURL: string)=>{
-                this.coverImageURL = imageURL;
+                if(imageURL)
+                    this.coverImageURL = imageURL;
             })
     }
 
@@ -120,29 +122,10 @@ export class AddGameComponent implements OnInit, OnDestroy {
     }
 
     openImageCoverPreview(){
-        this.dialog.open(CoverImagePreviewDialog, {
+        this.dialog.open(GameCoverImagePreviewDialogComponent, {
             width: '960px',
             data: {imageURL: this.coverImageURL}
         });
     }
 
-}
-
-@Component({
-    selector: 'cover-image-preview-dialog',
-    templateUrl: 'cover-image-preview-dialog.html',
-    styles: [
-        '.cover-image-preview{ width: 100%; height: 100%;}'
-    ]
-})
-export class CoverImagePreviewDialog {
-    constructor(
-        public dialogRef: MatDialogRef<CoverImagePreviewDialog>,
-        @Inject(MAT_DIALOG_DATA) public data: any
-    ){}
-
-
-    onCloseClick(){
-        this.dialogRef.close();
-    }
 }
