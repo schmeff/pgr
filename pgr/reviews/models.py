@@ -7,7 +7,7 @@ from games.models import Game
 class CriticReview(models.Model):
     name = models.CharField(max_length=100)
     link = models.URLField(null=True)
-    rating = models.SmallIntegerField(null=True)
+    rating = models.DecimalField(null=True, decimal_places=2, max_digits=5)
     game = models.ForeignKey(Game, on_delete=models.CASCADE, default=None)
     added_by = models.ForeignKey(User,
                                  models.SET_NULL,

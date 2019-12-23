@@ -3,16 +3,19 @@ import graphql_jwt
 
 import users.schema
 import games.schema
+import reviews.schema
 
 
 class Query(users.schema.Query,
             games.schema.Query,
+            reviews.schema.Query,
             graphene.ObjectType):
     pass
 
 
 class Mutation(users.schema.Mutation,
                games.schema.Mutation,
+               reviews.schema.Mutation,
                graphene.ObjectType):
     token_auth = graphql_jwt.ObtainJSONWebToken.Field()
     verify_token = graphql_jwt.Verify.Field()
