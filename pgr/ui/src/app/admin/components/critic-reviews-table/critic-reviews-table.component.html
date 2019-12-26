@@ -1,0 +1,43 @@
+<div class="critic-reviews-table-container">
+    <div class="header">
+        <h3>Critic Reviews</h3>
+    </div>
+    <div class="table-container">
+        <table
+            class="review-table"
+            mat-table
+            [dataSource]="criticReviews$ | async">
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+                <mat-cell *matCellDef="let review">{{review.name}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="rating">
+                <mat-header-cell *matHeaderCellDef>Rating</mat-header-cell>
+                <mat-cell *matCellDef="let review" class="rating-cell">{{review.rating}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell
+                    *matCellDef="let review"
+                    class="action-items">
+                    <mat-icon
+                        (click)="openAddCriticReviewDialog(review)"
+                        matTooltip="Edit Review">edit</mat-icon>
+                    <mat-icon
+                        (click)="openDeleteCriticReviewDialog(review)"
+                        matTooltip="Delete Review">delete</mat-icon>
+                </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </table>
+    </div>
+    <div class="footer">
+        <button
+            class="add-critic-review-button"
+            mat-raised-button
+            color="primary"
+            (click)="openAddCriticReviewDialog()">Add Critic Review
+        </button>
+    </div>
+</div>

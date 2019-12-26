@@ -1,0 +1,31 @@
+@import "~src/styles/colors";
+
+:host {
+    margin-top: 30px;
+    width: 50%;
+    background-color: $secondary-dark-background;
+    border-radius: 10px;
+
+    .critic-reviews-table-container{
+        padding: 0 30px 30px 30px;
+        display: flex;
+        flex-direction: column;
+
+        .review-table{
+            width: 100%;
+
+            .action-items{
+                display: flex;
+                justify-content: flex-end;
+
+                mat-icon:hover{
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .footer{
+            margin-top: 20px;
+        }
+    }
+}

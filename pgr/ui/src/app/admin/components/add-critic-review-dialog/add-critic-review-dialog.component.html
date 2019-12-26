@@ -1,0 +1,51 @@
+<h1 mat-dialog-title>Critic Review</h1>
+<div mat-dialog-content>
+    <form
+        class="add-critic-review-form"
+        [formGroup]="addCriticReviewForm">
+        <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input
+                type="text"
+                matInput
+                maxLength="100"
+                formControlName="name"
+                autocomplete="off"
+            >
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Rating</mat-label>
+            <input
+                type="text"
+                matInput
+                formControlName="rating"
+                autocomplete="off"
+            >
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Link</mat-label>
+            <input
+                type="text"
+                matInput
+                formControlName="link"
+                autocomplete="off"
+            >
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button
+        mat-raised-button
+        color="primary"
+        [disabled]="!addCriticReviewForm.valid || !addCriticReviewForm.dirty"
+        (click)="save()">Save
+    </button>
+    <button
+        mat-raised-button
+        color="primary"
+        [disabled]="!addCriticReviewForm.valid"
+        (click)="saveAndAddNew()"
+        *ngIf="!editing">Save and Add New
+    </button>
+    <button mat-button (click)="close()">Cancel</button>
+</div>

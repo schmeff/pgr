@@ -96,4 +96,67 @@ export class AdminService {
             query: getGameCoverImage
         }).valueChanges;
     }
+
+    addCriticReview(name: string, rating: number, gameId: string, link: string){
+        const addCriticReview = gql(`
+            mutation{
+                addCriticReview(name: "${name}", rating: ${rating}, gameId: "${gameId}", link: "${link}"){
+                    reviewId
+                }
+            }
+        `);
+
+        return this.apollo.mutate({
+            mutation: addCriticReview
+        });
+    }
+
+    editCriticReview(reviewId: string, name: string, rating: number, link: string){
+        const editCriticReview = gql(`
+            mutation{
+                editCriticReview(reviewId: "${reviewId}", name: "${name}", rating: ${rating}, link: "${link}"){
+                    success
+                }
+            }
+        `);
+
+        return this.apollo.mutate({
+            mutation: editCriticReview
+        });
+    }
+
+    deleteCriticReview(reviewId: string){
+        const deleteCriticReview = gql(`
+            mutation{
+                deleteCriticReview(reviewId: "${reviewId}"){
+                    success
+                }
+            }
+        `);
+
+        return this.apollo.mutate({
+            mutation: deleteCriticReview
+        });
+    }
+
+    getCriticReviews(gameId: string){
+        const getCriticReviews = gql(`
+            query{
+                allCriticReviews(game: "${gameId}"){
+                    edges{
+                        node{
+                            id,
+                            name,
+                            rating,
+                            link
+                        }
+                    }
+                }
+            }
+        `);
+
+        return this.apollo.watchQuery({
+            query: getCriticReviews
+        }).valueChanges;
+    }
 }

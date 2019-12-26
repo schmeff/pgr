@@ -10,6 +10,7 @@
         *ngIf="gameLoaded"
         class="edit-game-form-container"
         [formGroup]="editGameForm">
+        <h3>Game Info</h3>
         <mat-form-field appearance="outline">
             <mat-label>
                 Name
@@ -83,3 +84,6 @@
         </div>
     </form>
 </div>
+<pgr-critic-reviews-table *ngIf="gameLoaded" [gameId]="game.id">
+
+</pgr-critic-reviews-table>

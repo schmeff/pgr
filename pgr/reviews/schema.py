@@ -19,7 +19,8 @@ class CriticReviewNode(DjangoObjectType):
         model = CriticReview
         filter_fields = {
             'name': ['iexact'],
-            'id': ['exact']
+            'id': ['exact'],
+            'game': ['exact']
         }
         interfaces = (relay.Node, )
 
