@@ -14,7 +14,7 @@ import {takeUntil, timeout} from "rxjs/operators";
     styleUrls: ['./edit-user-profile.component.scss']
 })
 export class EditUserProfileComponent implements OnInit, OnDestroy {
-    @ViewChild('fileSelector')
+    @ViewChild('fileSelector', {static: false})
     fileSelector: ElementRef;
 
     private imageDataURLBS = new BehaviorSubject<any>(undefined);
