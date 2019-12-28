@@ -5,7 +5,11 @@
         "types": []
     },
     "exclude": [
-        "test.ts",
         "**/*.spec.ts"
+    ],
+    "files": [
+        "main.ts",
+        "typings.d.ts",
+        "polyfills.ts"
     ]
 }
