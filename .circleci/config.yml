@@ -7,7 +7,7 @@ jobs:
         working_directory: ~/pgr/ui
         
         steps:
-            - checkout
+            -checkout
         
             -restore_cache:
                 -keys:
