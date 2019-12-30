@@ -31,4 +31,4 @@ jobs:
                     
             - run:
                 name: UI unit tests
-                command: yarn test -i
+                command: yarn test -i -w=100%
