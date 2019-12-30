@@ -31,4 +31,4 @@ jobs:
                     
             - run:
                 name: UI unit tests
-                command: yarn test
+                command: yarn test -i
