@@ -4,8 +4,6 @@ jobs:
         docker:
             - image: circleci/node:9.9.0
         
-        working_directory: ./pgr/ui
-        
         steps:
             - checkout
             
