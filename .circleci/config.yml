@@ -1,6 +1,6 @@
 version: 1
 jobs:
-    test:
+    build:
         docker:
             - image: circleci/node:10.5.2
         
