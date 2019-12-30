@@ -1,12 +1,13 @@
 version: 1
 jobs:
-    build:
+    test:
         docker:
             - image: circleci/node:10.5.2
 
         working_directory: ~/pgr/ui
 
         steps:
+            # Checkout the code from the branch into the working_directory
             - checkout
 
             - restore_cache:
@@ -15,11 +16,15 @@ jobs:
                       # fallback to using the latest cache if no exact match is found
                       - v1-dependencies-
 
-            - run: yarn install
+            - run:
+                name: Install dependencies
+                command: yarn install
 
             - save_cache:
-                  paths:
-                      - node_modules
-                      key: v1-dependencies-{{ checksum "package.json" }}
+                key: v1-dependencies-{{ checksum "package-lock.json" }}
+                paths:
+                    - node_modules
 
-            -run: yarn test
+            -run:
+                name: UI unit tests
+                command: yarn test
