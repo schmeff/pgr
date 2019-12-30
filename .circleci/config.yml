@@ -31,4 +31,4 @@ jobs:
                     
             - run:
                 name: UI unit tests
-                command: yarn test -i -w=100%
+                command: yarn test -i --maxWorkers=100%
