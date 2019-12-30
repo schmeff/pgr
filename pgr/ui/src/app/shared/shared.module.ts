@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import { GameSearchComponent } from './components/game-search-selector/game-search.component';
 import {MatAutocompleteModule, MatInputModule, MatSelectModule} from "@angular/material";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
     declarations: [GameSearchComponent],
@@ -9,7 +10,8 @@ import {MatAutocompleteModule, MatInputModule, MatSelectModule} from "@angular/m
         CommonModule,
         MatSelectModule,
         MatInputModule,
-        MatAutocompleteModule
+        MatAutocompleteModule,
+        BrowserAnimationsModule
     ],
     exports: [
         GameSearchComponent

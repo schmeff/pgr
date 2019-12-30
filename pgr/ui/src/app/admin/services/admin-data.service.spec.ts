@@ -1,12 +1,34 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { AdminDataService } from './admin-data.service';
+import {AdminDataService} from './admin-data.service';
+import {AdminService} from "./admin.service";
+import {NO_ERRORS_SCHEMA} from "@angular/core";
 
 describe('AdminDataService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+    let adminServiceMock = createSpyObj(
+        "adminService",
+        [
+            "getGame",
+            "getGameCoverImage",
+            "getCriticReview",
+            "addCriticReview",
+            "editCriticReview",
+            "deleteCriticReview"
+        ]
+    );
 
-  it('should be created', () => {
-    const service: AdminDataService = TestBed.get(AdminDataService);
-    expect(service).toBeTruthy();
-  });
+    beforeEach(() => TestBed.configureTestingModule({
+        providers: [
+            {
+                provide: AdminService,
+                useValue: adminServiceMock
+            }
+        ],
+        schemas: [NO_ERRORS_SCHEMA]
+    }));
+
+    it('should be created', () => {
+        const service: AdminDataService = TestBed.get(AdminDataService);
+        expect(service).toBeTruthy();
+    });
 });

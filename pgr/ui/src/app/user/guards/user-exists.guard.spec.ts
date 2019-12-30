@@ -1,15 +1,31 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+import {TestBed, async, inject} from '@angular/core/testing';
 
-import { UserExistsGuard } from './user-exists.guard';
+import {UserExistsGuard} from './user-exists.guard';
+import {UserBaseService} from "../services/user-base.service";
+import {NO_ERRORS_SCHEMA} from "@angular/core";
 
 describe('UserExistsGuard', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [UserExistsGuard]
-    });
-  });
+    let userBaseServiceMock = createSpyObj(
+        "userBaseService",
+        [
+            "userExists"
+        ]
+    );
 
-  it('should ...', inject([UserExistsGuard], (guard: UserExistsGuard) => {
-    expect(guard).toBeTruthy();
-  }));
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            providers: [
+                UserExistsGuard,
+                {
+                    provide: UserBaseService,
+                    useValue: userBaseServiceMock
+                }
+            ],
+            schemas: [NO_ERRORS_SCHEMA]
+        });
+    });
+
+    it('should ...', inject([UserExistsGuard], (guard: UserExistsGuard) => {
+        expect(guard).toBeTruthy();
+    }));
 });

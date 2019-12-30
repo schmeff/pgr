@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {SearchService} from "./search.service";
 import {BehaviorSubject} from "rxjs";
-import {debounceTime, map, skipWhile, switchMap, tap} from "rxjs/operators";
+import {debounceTime, map, skipWhile, switchMap} from "rxjs/operators";
 
 @Injectable({
     providedIn: 'root'
