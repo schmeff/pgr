@@ -14,11 +14,10 @@ export class NavigationComponent implements OnInit {
 
     isStaff$ = this.authDataService.isStaffMember$;
 
-
     constructor(
-        private authService: AuthService,
+        public authService: AuthService,
         private router: Router,
-        private authDataService: AuthDataService
+        public authDataService: AuthDataService
     ) {
     }
 
