@@ -3,9 +3,12 @@ jobs:
     build:
         docker:
             - image: circleci/node:9.9.0
+            
+        working_directory: ~/pgr/pgr/ui
         
         steps:
-            - checkout                
+            - checkout:
+                path: ~/pgr
             
             - run:
                 name: Show current branch
