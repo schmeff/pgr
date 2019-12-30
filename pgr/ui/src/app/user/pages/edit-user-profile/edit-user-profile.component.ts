@@ -6,7 +6,7 @@ import {UserService} from "../../services/user.service";
 import {MatSnackBar} from "@angular/material";
 import {ImageService} from "../../../shared/utilities/image.service";
 import {BehaviorSubject, Subject} from "rxjs";
-import {takeUntil, timeout} from "rxjs/operators";
+import {skipWhile, takeUntil, timeout} from "rxjs/operators";
 
 @Component({
     selector: 'pgr-edit-user-profile',
@@ -39,11 +39,11 @@ export class EditUserProfileComponent implements OnInit, OnDestroy {
     });
 
     constructor(private userService: UserService,
-                private route: ActivatedRoute,
+                public route: ActivatedRoute, //public route for testing
                 private userBaseService: UserBaseService,
                 private snackBar: MatSnackBar,
                 private imageService: ImageService,
-                private router: Router) {
+                public router: Router) {
     }
 
     ngOnInit() {
@@ -70,7 +70,9 @@ export class EditUserProfileComponent implements OnInit, OnDestroy {
             });
 
         this.imageDataURL$
-            .pipe(takeUntil(this.$ngDestroy))
+            .pipe(
+                takeUntil(this.$ngDestroy)
+            )
             .subscribe((imageDataURL: any) => {
                 this.profileImageURL = imageDataURL
             });

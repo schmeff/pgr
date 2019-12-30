@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, TestBed} from '@angular/core/testing';
 
 import {UserProfileComponent} from './user-profile.component';
 import {EditUserProfileComponent} from "../edit-user-profile/edit-user-profile.component";
@@ -11,15 +11,14 @@ import {
     MatCheckboxModule,
     MatFormFieldModule,
     MatIconModule,
-    MatInputModule, MatSelectModule, MatSnackBar, MatSnackBarModule, MatTooltipModule
+    MatInputModule, MatSelectModule, MatSnackBarModule, MatTooltipModule
 } from "@angular/material";
 import {RouterTestingModule} from "@angular/router/testing";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {UserService} from "../../services/user.service";
-import {UserBaseService} from "../../services/user-base.service";
-import {ImageService} from "../../../shared/utilities/image.service";
 import {NO_ERRORS_SCHEMA} from "@angular/core";
 import {Apollo} from "apollo-angular";
+import {AuthService} from "../../../auth/services/auth.service";
 
 describe('UserProfileComponent', () => {
     let userServiceMock = createSpyObj(
@@ -27,6 +26,13 @@ describe('UserProfileComponent', () => {
         [
             "setPublicUsername",
             "setImageUsername"
+        ]
+    );
+
+    let authServiceMock = createSpyObj(
+        "authService",
+        [
+            "getUsername"
         ]
     );
 
@@ -66,6 +72,10 @@ describe('UserProfileComponent', () => {
                 {
                     provide: Apollo,
                     useValue: apolloMock
+                },
+                {
+                    provide: AuthService,
+                    useValue: authServiceMock
                 }
             ],
             schemas: [NO_ERRORS_SCHEMA]
@@ -81,5 +91,33 @@ describe('UserProfileComponent', () => {
 
     it('should create', () => {
         expect(component).toBeTruthy();
+    });
+
+    describe("OnInit", () => {
+        it("should set image username and image", () => {
+            jest.spyOn(
+                authServiceMock,
+                "getUsername"
+            ).mockReturnValue("testuser");
+
+            component.route.snapshot.params.username = "testuser";
+            component.ngOnInit();
+
+            expect(userServiceMock.setPublicUsername).toHaveBeenCalledWith("testuser");
+            expect(userServiceMock.setImageUsername).toHaveBeenCalledWith("testuser");
+            expect(component.isUser).toBe(true);
+        });
+
+        it("should set isUser to false", ()=>{
+            jest.spyOn(
+                authServiceMock,
+                "getUsername"
+            ).mockReturnValue("testuser");
+
+            component.route.snapshot.params.username = "testuser1";
+            component.ngOnInit();
+
+            expect(component.isUser).toBe(false);
+        });
     });
 });

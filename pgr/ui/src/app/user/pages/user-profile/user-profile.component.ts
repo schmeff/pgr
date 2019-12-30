@@ -16,7 +16,7 @@ export class UserProfileComponent implements OnInit {
 
     constructor(
         private userService: UserService,
-        private route: ActivatedRoute,
+        public route: ActivatedRoute, //public for testing
         private authService: AuthService
     ) {
     }
